@@ -1,0 +1,36 @@
+services:
+  app:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      APP_NAME: "JVM Technologies AI"
+      JWT_SECRET: "${JWT_SECRET:-replace-this-secret-before-deployment}"
+      DATABASE_URL: "postgresql+psycopg://jvm_user:${POSTGRES_PASSWORD:-change_this_password}@db:5432/jvm_ai"
+      AI_PROVIDER: "${AI_PROVIDER:-ollama}"
+      AI_BASE_URL: "${AI_BASE_URL:-http://host.docker.internal:11434}"
+      AI_API_KEY: "${AI_API_KEY:-}"
+      AI_MODEL: "${AI_MODEL:-llama3.2}"
+      AI_TIMEOUT_SECONDS: "${AI_TIMEOUT_SECONDS:-120}"
+    depends_on:
+      db:
+        condition: service_healthy
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_DB: jvm_ai
+      POSTGRES_USER: jvm_user
+      POSTGRES_PASSWORD: "${POSTGRES_PASSWORD:-change_this_password}"
+    ports:
+      - "5432:5432"
+    volumes:
+      - jvm_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U jvm_user -d jvm_ai"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+volumes:
+  jvm_pgdata:

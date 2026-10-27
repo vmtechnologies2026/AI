@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#10172a">
+  <title>JVM Technologies AI</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <div class="brand"><div class="brand-mark">J</div><div><strong>JVM Technologies</strong><span>AI PLATFORM</span></div></div>
+      <button class="new-chat" id="newChatBtn">＋ New chat</button>
+      <div class="section-label">YOUR CONVERSATIONS</div>
+      <div id="chatList" class="chat-list"><p class="muted small">Sign in to save chats.</p></div>
+      <div class="sidebar-bottom">
+        <div class="provider-note"><span class="status-dot"></span><span id="providerLabel">AI service configured by administrator</span></div>
+        <button class="text-button" id="settingsBtn">Settings & account</button>
+      </div>
+    </aside>
+    <main class="main">
+      <header class="topbar">
+        <button class="mobile-menu" id="mobileMenu" aria-label="Toggle menu">☰</button>
+        <div><span class="eyebrow">JVM TECHNOLOGIES</span><h1>AI Workspace</h1></div>
+        <div class="top-actions"><span id="userBadge" class="user-badge">Guest</span><button id="authOpen" class="outline-btn">Sign in</button></div>
+      </header>
+      <section class="workspace">
+        <div id="welcome" class="welcome">
+          <div class="hero-icon">✦</div>
+          <p class="eyebrow">YOUR AI-POWERED WORKSPACE</p>
+          <h2>What can we build<br><span>together today?</span></h2>
+          <p class="welcome-copy">Ask questions, explore ideas, or switch to Code Assistant for programming help.</p>
+          <div class="suggestions">
+            <button class="suggestion" data-prompt="Explain DNS and DHCP in simple terms for an IT support engineer."><b>◈ IT support</b><span>Explain DNS and DHCP simply</span></button>
+            <button class="suggestion" data-prompt="Help me debug a Java program. Explain a systematic debugging approach."><b>⌘ Coding help</b><span>Debug and explain code</span></button>
+            <button class="suggestion" data-prompt="Create a professional project plan for a small business website."><b>✧ Project planning</b><span>Plan a business website</span></button>
+            <button class="suggestion" data-prompt="Help me write a professional email to a customer."><b>✉ Writing</b><span>Write a professional email</span></button>
+          </div>
+          <div class="welcome-hint">Sign in or create an account to chat and save conversation history.</div>
+        </div>
+        <div id="messages" class="messages hidden" aria-live="polite"></div>
+        <div class="composer-wrap">
+          <div class="mode-row"><span>ASSISTANT MODE</span><div class="mode-toggle"><button id="chatMode" class="mode active">✦ Chat</button><button id="codeMode" class="mode">⌘ Code assistant</button></div></div>
+          <form id="composer" class="composer">
+            <textarea id="prompt" rows="1" maxlength="12000" placeholder="Message JVM AI..." aria-label="Message JVM AI"></textarea>
+            <button id="sendBtn" type="submit" aria-label="Send message">↑</button>
+          </form>
+          <div class="disclaimer">AI can make mistakes. Verify important information. Do not enter passwords or sensitive personal data.</div>
+        </div>
+      </section>
+      <footer>© <span id="year"></span> JVM Technologies · Independent AI platform</footer>
+    </main>
+  </div>
+
+  <div class="modal-backdrop hidden" id="authModal">
+    <section class="modal" role="dialog" aria-modal="true" aria-labelledby="authTitle">
+      <button class="modal-close" id="authClose" aria-label="Close">×</button>
+      <div class="brand modal-brand"><div class="brand-mark">J</div><div><strong>JVM Technologies</strong><span>AI PLATFORM</span></div></div>
+      <h2 id="authTitle">Welcome back</h2><p class="muted" id="authSubtitle">Sign in to continue to your AI workspace.</p>
+      <form id="authForm">
+        <div id="nameField" class="field hidden"><label for="authName">Full name</label><input id="authName" autocomplete="name" minlength="2" maxlength="120"></div>
+        <div class="field"><label for="authEmail">Email address</label><input id="authEmail" type="email" autocomplete="email" required></div>
+        <div class="field"><label for="authPassword">Password</label><input id="authPassword" type="password" autocomplete="current-password" minlength="8" required></div>
+        <p id="authError" class="error"></p>
+        <button class="primary-btn full" id="authSubmit" type="submit">Sign in</button>
+      </form>
+      <p class="switch-auth"><span id="switchText">New to JVM AI?</span> <button id="switchAuth" class="link-btn">Create account</button></p>
+    </section>
+  </div>
+
+  <div class="modal-backdrop hidden" id="accountModal">
+    <section class="modal" role="dialog" aria-modal="true">
+      <button class="modal-close" id="accountClose" aria-label="Close">×</button>
+      <h2>Account & settings</h2><p id="accountInfo" class="muted"></p>
+      <div id="adminInfo" class="admin-box hidden"></div>
+      <button id="signOutBtn" class="outline-btn full">Sign out</button>
+      <p class="muted tiny">AI provider and model are configured by the server administrator in the environment settings.</p>
+    </section>
+  </div>
+  <div id="toast" class="toast" role="status"></div>
+  <script src="/static/app.js"></script>
+</body>
+</html>
